@@ -85,6 +85,7 @@ Spa-Car-Wash/
 - `docs/admin-guide.md` – how staff should use the prototype overlays + Crisp
 - `docs/developer-overview.md` – architecture, data flow, localStorage schema
 - `docs/ATTRIBUTIONS.md` – assets and license notes
+- `docs/content-refresh-summary.md` – snapshot of the latest on-site content updates
 - `docs/archived/` – historical restructure/cleanup logs
 - `docs/final-polish-summary.md` – this cleanup summary
 

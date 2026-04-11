@@ -12,7 +12,7 @@ export function Contact() {
             Visit Us Today
           </h2>
           <p className="text-xl text-blue-200">
-            Conveniently located in Berwyn, PA - Serving the Main Line area
+            Conveniently located in Berwyn, PA • Weather permitting hours • Detailing by appointment
           </p>
         </div>
 
@@ -56,7 +56,7 @@ export function Contact() {
                     610-695-0711
                   </a>
                   <p className="text-blue-200 mt-2">
-                    Call us for questions or appointments
+                    Call to confirm wait times, purchase prepaid cards, or request a detailing slot.
                   </p>
                 </div>
               </div>
@@ -72,13 +72,16 @@ export function Contact() {
                   <div className="space-y-2">
                     <div className="flex justify-between text-blue-100">
                       <span>Monday - Saturday</span>
-                      <span className="font-semibold text-white">9:00 AM - 5:00 PM</span>
+                      <span className="font-semibold text-white">9:00 AM – 5:00 PM</span>
                     </div>
                     <div className="flex justify-between text-blue-100">
                       <span>Sunday</span>
-                      <span className="font-semibold text-white">10:00 AM - 4:00 PM</span>
+                      <span className="font-semibold text-white">10:00 AM – 4:00 PM</span>
                     </div>
                   </div>
+                  <p className="text-blue-300 text-sm mt-3">
+                    Hours may shift with weather. Detailing services are scheduled in advance—call or chat for the next available slot.
+                  </p>
                 </div>
               </div>
             </Card>

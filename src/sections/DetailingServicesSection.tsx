@@ -24,7 +24,7 @@ const detailingPackages = [
     ],
     isPremium: true,
     isFeatured: true,
-    note: "Available by appointment or while-u-wait. Our detail specialists hand-dry your vehicle with premium towels for a scratch-free, showroom finish. Check current wait time above!",
+    note: "Appointments recommended on weekends. Call 610-695-0711 for live availability—our team will confirm wait times before you arrive.",
   },
   {
     id: "exterior",
@@ -41,7 +41,7 @@ const detailingPackages = [
       "Chrome & trim restoration",
     ],
     isPremium: true,
-    note: "This package is offered by appointment only.",
+    note: "Appointment only. We'll confirm timing and finish expectations when you submit a request.",
   },
   {
     id: "interior",
@@ -58,7 +58,7 @@ const detailingPackages = [
       "Air freshening treatment",
     ],
     isPremium: true,
-    note: "This package is offered by appointment only. Unusual spills, odors, or conditions may require additional time and cost.",
+    note: "Appointment only. Let us know about spills or odors so we can allocate extra time if needed.",
   },
   {
     id: "mini",
@@ -75,7 +75,7 @@ const detailingPackages = [
       "Window cleaning",
     ],
     isPremium: true,
-    note: "The Mini Detail can be performed on a WHILE U WAIT basis. 2-4 hour service time.",
+    note: "Often available while you wait (2–4 hours). Call ahead so we can stage a bay for you.",
   },
   {
     id: "signature",
@@ -93,7 +93,7 @@ const detailingPackages = [
     ],
     isPremium: true,
     isMostPopular: true,
-    note: "All day service. This package is offered by appointment only.",
+    note: "All-day appointment with pickup/drop-off reminders provided once scheduled.",
   },
   {
     id: "rejuvenate",
@@ -110,7 +110,7 @@ const detailingPackages = [
       "Luxury treatment",
     ],
     isPremium: true,
-    note: "All day service. This package is offered by appointment only.",
+    note: "All-day appointment focused on high-end finishes. We'll discuss paint condition in advance.",
   },
   {
     id: "cleanse",
@@ -127,7 +127,7 @@ const detailingPackages = [
       "Comprehensive detail",
     ],
     isPremium: true,
-    note: "All day service. This exclusive service will restore the pleasure of your automobile's interior environment. This package is offered by appointment only and includes pickup and delivery of your vehicle.",
+    note: "All-day appointment with pickup and delivery included. Pricing finalized after a quick walk-through.",
   },
   {
     id: "ultimate",
@@ -146,7 +146,7 @@ const detailingPackages = [
     isPremium: false,
     isUltimate: true,
     highlight: "ULTIMATE PACKAGE",
-    note: "2 day service. This package is offered by appointment only and includes pickup and delivery of your vehicle.",
+    note: "Two-day appointment with concierge pickup/drop-off. We'll build a custom timeline after inspecting the vehicle.",
   },
 ];
 
@@ -396,11 +396,11 @@ export function DetailingServicesSection() {
                     className="w-full bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold shadow-lg"
                     onClick={() => handlePackageClick(service)}
                   >
-                    Book Appointment
+                    View Package Details
                   </Button>
-                </div>
-              </Card>
-            ))}
+               </div>
+             </Card>
+           ))}
           </div>
         )}
 

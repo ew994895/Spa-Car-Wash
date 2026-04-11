@@ -19,6 +19,7 @@ const packages = [
       "Hand Towel Dry",
     ],
     isPremium: false,
+    description: "Quick tunnel wash with a light interior spruce-up—perfect for weekly upkeep.",
   },
   {
     id: 2,
@@ -28,15 +29,14 @@ const packages = [
     color: "from-emerald-600 to-emerald-700",
     borderColor: "border-emerald-500/30",
     features: [
-      "Interior Vacuum",
-      "Softcloth Wash",
-      "Wheel Blast",
-      "Spot Free Rinse",
-      "Interior Window Clean",
-      "Hand Towel Dry",
-      "Undercarriage Wash",
-      "Tire Shine",
+      "Interior vacuum & dash wipe down",
+      "Soft-cloth wash + wheel blast",
+      "Spot-free rinse & hand dry",
+      "Interior glass cleaned",
+      "Undercarriage flush",
+      "Tire shine & exterior dressing",
     ],
+    description: "Adds undercarriage protection and a glossy tire finish to our full-service wash.",
     isPremium: false,
   },
   {
@@ -47,16 +47,15 @@ const packages = [
     color: "from-orange-600 to-orange-700",
     borderColor: "border-orange-500/30",
     features: [
-      "Interior Vacuum",
-      "Softcloth Wash",
-      "Wheel Blast",
-      "Spot Free Rinse",
-      "Interior Window Clean",
-      "Hand Towel Dry",
-      "Undercarriage Wash",
-      "Tire Shine",
-      "Triple Foam Polish",
+      "Interior vacuum + quick detail",
+      "Soft-cloth wash with double soap pass",
+      "Wheel blast + tire dressing",
+      "Spot-free rinse & hand towel dry",
+      "Interior glass cleaned",
+      "Undercarriage wash & rust inhibitor",
+      "Triple-foam polish & sealer",
     ],
+    description: "Our tunnel's complete package with triple foam polish for added gloss and protection.",
     isPremium: false,
   },
   {
@@ -68,23 +67,18 @@ const packages = [
     borderColor: "border-red-500/30",
     badge: "Most Popular",
     features: [
-      "Interior Vacuum",
-      "Softcloth Wash",
-      "Wheel Blast",
-      "Spot Free Rinse",
-      "Interior Window Clean",
-      "Hand Towel Dry",
-      "Undercarriage Wash",
-      "Tire Shine",
-      "Triple Foam Polish",
-      "Lustre Shield (RainX)",
-      "Clean Dashboard",
-      "Compressed Air Blowout",
-      "Clean Console",
-      "Extra Vacuuming",
-      "Interior Wipedown",
-      "Wheel Detail",
+      "Interior vacuum including cargo area",
+      "Soft-cloth wash + wheel blast",
+      "Spot-free rinse, hand towel & air dry",
+      "Interior glass crystal clear",
+      "Undercarriage wash & tire dressing",
+      "Triple foam polish & Lustre Shield",
+      "Dashboard/console wiped and dressed",
+      "Compressed air blowout for vents",
+      "Extra vacuum passes + mat cleaning",
+      "Wheel faces hand detailed",
     ],
+    description: "Adds interior wipe-down, Rain-X style sealant, and intensive vacuuming—our staff favorite for daily drivers.",
     isPremium: false,
   },
   {
@@ -96,24 +90,18 @@ const packages = [
     borderColor: "border-yellow-500/50",
     badge: "Ultimate Package",
     features: [
-      "Interior Vacuum",
-      "Softcloth Wash",
-      "Wheel Blast",
-      "Spot Free Rinse",
-      "Interior Window Clean",
-      "Hand Towel Dry",
-      "Undercarriage Wash",
-      "Tire Shine",
-      "Triple Foam Polish",
-      "Lustre Shield (RainX)",
-      "Clean Dashboard",
-      "Compressed Air Blowout",
-      "Clean Console",
-      "Extra Vacuuming",
-      "Interior Wipedown",
-      "Wheel Detail",
-      "Express Wax",
+      "Interior vacuum + mat shampoo on request",
+      "Soft-cloth wash with lubrication & foam",
+      "Hand towel dry with microfiber microfibers",
+      "Undercarriage wash & rust inhibitor",
+      "Wheel faces & barrels hand detailed",
+      "Triple foam polish + Lustre Shield",
+      "Dashboard/console dressed & conditioned",
+      "Compressed air blowout for seams",
+      "Tire dressing + exterior plastic revive",
+      "Express hand wax for added protection",
     ],
+    description: "Our concierge wash—includes a hand-applied express wax and extra interior attention for showroom-ready results.",
     isPremium: true,
   },
 ];
@@ -174,6 +162,12 @@ export function WashPackages() {
                   )}
                 </div>
 
+                {pkg.description && (
+                  <p className="text-blue-100 text-sm mb-5 leading-relaxed">
+                    {pkg.description}
+                  </p>
+                )}
+
                 <ul className="space-y-3 mb-6">
                   {pkg.features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-2 text-blue-100">
@@ -192,7 +186,7 @@ export function WashPackages() {
                       : `bg-gradient-to-r ${pkg.color} hover:opacity-90`
                   } text-white`}
                 >
-                  {pkg.isPremium ? "Choose Ultimate" : "Select Package"}
+                  {pkg.isPremium ? "Reserve Elite Treatment" : "Plan This Wash"}
                 </Button>
               </div>
             </Card>

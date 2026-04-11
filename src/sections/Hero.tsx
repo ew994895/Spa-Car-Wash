@@ -26,62 +26,60 @@ export function Hero() {
         <div className="flex items-center justify-center gap-2 mb-6">
           <Sparkles className="w-6 h-6 text-yellow-400" />
           <span className="text-yellow-400 uppercase tracking-wider text-sm font-medium">
-            Premium Car Care Since 1985
+            Main Line's Original Full-Service Wash & Detail Studio
           </span>
           <Sparkles className="w-6 h-6 text-yellow-400" />
         </div>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-          Experience The{" "}
+          Berwyn's Trusted
           <span className="bg-gradient-to-r from-blue-400 via-blue-300 to-red-400 bg-clip-text text-transparent">
-            Spa Treatment
+            {" "}Car Wash & Detail Team
           </span>
-          <br />
-          Your Car Deserves
         </h1>
 
         <p className="text-lg sm:text-xl text-blue-200 mb-8 max-w-3xl mx-auto">
-          From luxury detailing to express washes, we deliver exceptional results with eco-friendly technology. 
-          Join thousands of satisfied customers in the Philadelphia area.
+          Family-owned since 1985, Spa Car Wash pairs tunnel efficiency with white-glove detailing so Main Line vehicles leave spotless, protected, and ready for the road—no appointment needed for washes, detailing by reservation.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button
-            onClick={() => scrollToSection("membership")}
+            onClick={() => scrollToSection("packages")}
             size="lg"
             className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white shadow-2xl shadow-red-500/30 text-lg px-8 py-6 group"
           >
-            Join Our Membership
+            See Wash Menu
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Button>
           <Button
-            onClick={() => scrollToSection("packages")}
+            onClick={() => scrollToSection("membership")}
             size="lg"
             className="bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-white shadow-2xl shadow-yellow-500/30 text-lg px-8 py-6 font-semibold"
           >
-            View Packages
+            Buy Prepaid Washes
           </Button>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 max-w-4xl mx-auto">
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-            <div className="text-3xl font-bold text-white mb-2">35+</div>
-            <div className="text-blue-200 text-sm">Years Experience</div>
+            <div className="text-3xl font-bold text-white mb-2">1985</div>
+            <div className="text-blue-200 text-sm">Year Spa Car Wash Opened</div>
           </div>
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
             <div className="text-3xl font-bold text-white mb-2">50K+</div>
-            <div className="text-blue-200 text-sm">Happy Customers</div>
+            <div className="text-blue-200 text-sm">Vehicles Cared For Annually</div>
           </div>
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
-            <div className="text-3xl font-bold text-white mb-2">25-35</div>
-            <div className="text-blue-200 text-sm">Gallons Per Wash</div>
+            <div className="text-3xl font-bold text-white mb-2">7</div>
+            <div className="text-blue-200 text-sm">Day-A-Week Service*</div>
           </div>
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
             <div className="text-3xl font-bold text-white mb-2">5★</div>
-            <div className="text-blue-200 text-sm">Rated Service</div>
+            <div className="text-blue-200 text-sm">Rated Across Main Line Reviews</div>
           </div>
         </div>
+        <p className="text-xs text-blue-300 mt-4">*Weather permitting. Detailing by appointment.</p>
       </div>
     </section>
   );

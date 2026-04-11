@@ -60,7 +60,7 @@ export function Membership() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <CreditCard className="w-8 h-8 text-yellow-400" />
             <span className="text-yellow-400 uppercase tracking-widest text-sm font-bold">
-              Smart Savings Program
+              Smart Savings For Frequent Washers
             </span>
             <CreditCard className="w-8 h-8 text-yellow-400" />
           </div>
@@ -68,10 +68,10 @@ export function Membership() {
             Prepaid Wash Cards
           </h2>
           <p className="text-2xl text-blue-200 max-w-3xl mx-auto mb-4">
-            Buy in bulk and save big! Get up to <span className="text-yellow-400 font-bold">33% OFF</span> every wash
+            Load washes onto a DRB prepaid card, share it with the household, and lock in up to <span className="text-yellow-400 font-bold">33% savings</span> every time you roll through the tunnel.
           </p>
           <div className="inline-block bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-2 rounded-full text-lg font-bold">
-            🎁 The more you buy, the more you save!
+            Weather-permitting • Usable on any wash the same day you buy
           </div>
         </div>
 
@@ -130,7 +130,7 @@ export function Membership() {
                   }`}
                   onClick={() => window.open('https://websiteconnect.drb.com/spacarwash/BUY-A-PREPAID', '_blank')}
                 >
-                  {level.isPremium ? "Get Best Value →" : "Buy Now"}
+                  {level.isPremium ? "Activate Best Value Card" : "Purchase Pack"}
                 </Button>
               </div>
             </Card>
@@ -163,8 +163,11 @@ export function Membership() {
           </div>
 
           <div className="text-center mt-8">
-            <p className="text-blue-200 mb-4">
-              Apply your prepaid card savings to any wash package!
+            <p className="text-blue-200 mb-2">
+              Apply your prepaid card savings to any wash package on the menu.
+            </p>
+            <p className="text-blue-300 text-sm">
+              Questions? Call 610-695-0711 or stop by our cashier and we'll load the card for you.
             </p>
           </div>
         </div>

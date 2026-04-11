@@ -50,32 +50,32 @@ export function Help() {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            We're Here to Help
+            Need A Hand Before You Visit?
           </h2>
           <p className="text-xl text-blue-200 max-w-2xl mx-auto">
-            Get in touch with us anytime. We offer multiple ways to reach our team and answer your questions.
+            Confirm wait times, request a detailing slot, or ask about memberships—the same Berwyn team that greets you on-site responds to every message.
           </p>
         </div>
 
         {/* Contact Options Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {/* 24/7 Live Chat */}
+          {/* Chat */}
           <Card className="bg-gradient-to-br from-blue-900/40 to-slate-800/40 border-2 border-blue-500/30 p-8 hover:border-blue-400/50 transition-all">
             <div className="flex items-start gap-4">
               <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-full p-4 flex-shrink-0">
                 <MessageCircle className="w-8 h-8 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="text-2xl font-bold text-white mb-2">24/7 Live Chat</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">Message Our Team</h3>
                 <p className="text-blue-200 mb-4">
-                  Get instant answers to your questions anytime, day or night. Our chat support is always available to help you.
+                  Chat is monitored during business hours; after hours we reply first thing the next morning. Leave vehicle details so we can prep an answer.
                 </p>
                 <Button
                   onClick={openChat}
                   className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white w-full sm:w-auto"
                 >
                   <MessageCircle className="w-4 h-4 mr-2" />
-                  Start Chat Now
+                  Start A Conversation
                 </Button>
               </div>
             </div>
@@ -195,8 +195,8 @@ export function Help() {
           <h3 className="text-2xl font-bold text-white mb-6 text-center">Quick Help</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
-              <h4 className="text-lg font-bold text-white mb-2">Service Pricing</h4>
-              <p className="text-blue-200 mb-3">View our wash packages and detailing services</p>
+              <h4 className="text-lg font-bold text-white mb-2">Service Menu</h4>
+              <p className="text-blue-200 mb-3">See today’s wash lineup and detailing availability</p>
               <Button
                 onClick={() => {
                   const element = document.getElementById("packages");
@@ -205,12 +205,12 @@ export function Help() {
                 variant="outline"
                 className="border-blue-400 text-blue-100 hover:bg-blue-500/20"
               >
-                View Services
+                Open Wash Menu
               </Button>
             </div>
             <div className="text-center">
-              <h4 className="text-lg font-bold text-white mb-2">Book Appointment</h4>
-              <p className="text-blue-200 mb-3">Schedule your detailing service online</p>
+              <h4 className="text-lg font-bold text-white mb-2">Request Detailing Slot</h4>
+              <p className="text-blue-200 mb-3">Tell us when you’d like to drop off—we’ll confirm the schedule</p>
               <Button
                 onClick={() => {
                   const element = document.getElementById("detailing");
@@ -219,12 +219,12 @@ export function Help() {
                 variant="outline"
                 className="border-blue-400 text-blue-100 hover:bg-blue-500/20"
               >
-                Book Now
+                Request Time
               </Button>
             </div>
             <div className="text-center">
               <h4 className="text-lg font-bold text-white mb-2">Membership Info</h4>
-              <p className="text-blue-200 mb-3">Learn about our prepaid wash cards</p>
+              <p className="text-blue-200 mb-3">Learn how prepaid cards and savings levels work</p>
               <Button
                 onClick={() => {
                   const element = document.getElementById("membership");
@@ -233,7 +233,7 @@ export function Help() {
                 variant="outline"
                 className="border-blue-400 text-blue-100 hover:bg-blue-500/20"
               >
-                Learn More
+                Explore Savings
               </Button>
             </div>
           </div>
@@ -242,8 +242,7 @@ export function Help() {
         {/* Business Hours Note */}
         <div className="mt-8 text-center">
           <p className="text-blue-300">
-            <strong>Note:</strong> While our 24/7 chat is always available, phone support is available during business hours.
-            Check the top of our homepage for current open/closed status.
+            <strong>Note:</strong> Chat and email are monitored during posted hours; outside that window we respond the next business day. Check the status banner at the top of the site for weather updates before driving over.
           </p>
         </div>
       </div>

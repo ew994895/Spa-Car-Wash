@@ -8,19 +8,13 @@ export function About() {
           {/* Left Content */}
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Trusted Since 1985
+              Trusted On The Main Line Since 1985
             </h2>
             <p className="text-xl text-blue-200 mb-6">
-              For over 35 years, Spa Car Wash & Detailing Center has been providing 
-              the Philadelphia area with exceptional car care services. We combine 
-              modern technology with old-fashioned customer service to deliver 
-              results that exceed expectations.
+              Spa Car Wash & Detailing Center is a family-operated facility with a climate-controlled tunnel, dedicated hand-wash bay, and a detailing studio staffed by career technicians. Every visit mixes modern equipment with the personal service our Berwyn neighbors expect.
             </p>
             <p className="text-lg text-blue-200 mb-8">
-              Our state-of-the-art facility in Berwyn, PA serves customers from 
-              across the Main Line and beyond. Whether you need a quick wash or 
-              comprehensive detailing, our experienced team treats every vehicle 
-              with the care it deserves.
+              We care for vehicles from Wayne to West Chester seven days a week, weather permitting. Whether you need a midweek freshen-up, prepaid washes for the household, or a two-day ultimate detail, our team documents your goals and treats each vehicle like it was our own.
             </p>
 
             {/* Stats Grid */}
