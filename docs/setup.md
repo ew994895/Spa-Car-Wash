@@ -1,4 +1,4 @@
-# Getting Started
+# Setup & Deployment
 
 This document walks through installing, running, and deploying the Spa Car Wash marketing website. The codebase is a Vite + React SPA with Tailwind CSS and TypeScript. Admin controls (promotions, wait times, business status) are *frontend-only* and store their data in the browser's `localStorage`.
 
