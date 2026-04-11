@@ -33,6 +33,7 @@ npm install
 ## Environment & Integrations
 - **Crisp Chat** is embedded via `src/layout/CrispChat.tsx`. Update `window.CRISP_WEBSITE_ID` before shipping to production.
 - **Booking endpoint** – set `VITE_BOOKING_ENDPOINT` in a `.env` file to the HTTPS endpoint that should receive booking requests (Formspree, Zapier, custom API, etc.). Without it, the form will show an error and instruct the user to call.
+- **Admin portal** – set `VITE_ADMIN_PASSCODE` in the same `.env` file. Staff must enter this passcode on `/admin` to unlock business status, promotion, and wait-time controls.
 
 ## Known Limitations
 - All admin settings are stored in the current browser's `localStorage`. Clearing browser data resets them.

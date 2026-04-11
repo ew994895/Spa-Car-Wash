@@ -25,7 +25,7 @@ Responsive marketing site for Spa Car Wash & Detailing Center. Built with React,
 - Promotion system with banner, hero insert, floating CTA, and session popup placements
 - Business status ribbon (open/closed, alerts, custom notes)
 - Wait-time chips for each service category
-- Keyboard shortcuts (`Ctrl+Shift+S/P/X`) open the overlays for quick edits
+- Passcode-protected `/admin` route to open the overlays intentionally
 
 ---
 
@@ -57,6 +57,8 @@ npm run preview    # serve the production build locally
 `setup.sh` / `setup.bat` simply wrap the install + dev commands for non-technical operators.
 
 > Booking submissions require a POST endpoint (e.g., Formspree, Zapier, or a custom API). Configure `VITE_BOOKING_ENDPOINT` in a `.env` file to ensure requests are delivered to the business.
+>
+> Staff access to `/admin` requires `VITE_ADMIN_PASSCODE`. Share the passcode only with authorized employees.
 
 ---
 
@@ -89,6 +91,7 @@ Spa-Car-Wash/
 - `docs/booking-integration-summary.md` – explains the booking webhook/env configuration
 - `docs/ATTRIBUTIONS.md` – assets and license notes
 - `docs/content-refresh-summary.md` – snapshot of the latest on-site content updates
+- `docs/admin-hardening-summary.md` – outlines how the admin portal is locked down today
 - `docs/archived/` – historical restructure/cleanup logs
 - `docs/final-polish-summary.md` – this cleanup summary
 

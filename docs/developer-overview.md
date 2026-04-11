@@ -24,11 +24,12 @@ The repository root (`Spa-Car-Wash/`) is now the true app. Key directories:
 
 ### `src/app`
 - `App.tsx` – Wraps the router using `RouterProvider`.
-- `routes/index.tsx` – Declares `/`, `/premium-detailing`, `/ultimate-detailing` routes.
+- `routes/index.tsx` – Declares `/`, `/premium-detailing`, `/ultimate-detailing`, and the passcode-protected `/admin` route.
 
 ### `src/pages`
-- `Home.tsx` – Composes the marketing site + admin overlays. Handles keyboard shortcuts (`Ctrl+Shift+S/P/X`) to toggle `StatusAdmin`, `PromotionAdmin`, and `WaitTimeAdmin`.
+- `Home.tsx` – Composes the marketing site; admin overlays are no longer mounted here.
 - `PremiumDetailing.tsx` / `UltimateDetailing.tsx` – Detail pages for premium services. Share the `BookingForm` and curated packages copy.
+- `Admin.tsx` – Staff portal that asks for `VITE_ADMIN_PASSCODE` before exposing promotion, wait-time, and status controls.
 
 ### `src/layout`
 - `Header.tsx`, `Footer.tsx`, `BackToTop.tsx`, `CrispChat.tsx` – Global chrome. `CrispChat` injects the Crisp script (`window.CRISP_WEBSITE_ID = "9ad0b13f-c4a2-4189-a644-5233bbbcf561"`) and exposes helpers so sections (e.g., Help) can open the widget.
@@ -38,7 +39,7 @@ Reusable marketing blocks for the homepage: `Hero`, `WashPackages`, `Membership`
 
 ### `src/features`
 Domain-specific logic grouped by concern:
-- `booking/BookingForm.tsx` – Lead form (validates inputs, shows success state, logs submissions for now).
+- `booking/BookingForm.tsx` – Lead form (validations, success/errors, honeypot) that POSTs to `VITE_BOOKING_ENDPOINT`.
 - `promotions/` – `PromotionBanner`, `PromotionPopup`, `PromotionFloating`, `PromotionDisplay`, `PromotionAdmin`. Stores promotions in `localStorage['spaCarWashPromotions']` and exposes placement-specific renderers.
 - `status/StatusAdmin.tsx` – Tracks open/closed, conditions, and custom notes in `localStorage['spaCarWashStatus']`.
 - `wait-times/` – `WaitTimeBadge`, `WaitTimeDisplay`, `WaitTimeAdmin`. Persists `localStorage['spaCarWashWaitTimes']` and emits browser events so badges refresh live.

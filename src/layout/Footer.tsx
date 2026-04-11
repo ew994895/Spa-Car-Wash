@@ -1,4 +1,5 @@
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const logo = "https://spacarwash.com/wp-content/uploads/2024/10/logo.png";
 
@@ -152,54 +153,25 @@ export function Footer() {
 
         {/* Staff Admin Tools - Info Section */}
         <div className="border-t border-blue-500/20 pt-8 mb-8">
-          <div className="bg-gradient-to-r from-slate-800/50 to-slate-900/50 border border-yellow-500/30 rounded-lg p-6">
+          <div className="bg-gradient-to-r from-slate-800/50 to-slate-900/50 border border-yellow-500/30 rounded-lg p-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex items-start gap-3">
               <Shield className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
-              <div className="flex-1">
-                <h4 className="text-yellow-400 font-bold text-lg mb-3">Staff Admin Tools</h4>
-                <p className="text-blue-200 text-sm mb-4">
-                  Use these keyboard shortcuts to access management tools for updating business information:
+              <div>
+                <h4 className="text-yellow-400 font-bold text-lg mb-2">Staff Admin Portal</h4>
+                <p className="text-blue-200 text-sm">
+                  Authorized employees can update business status, promotions, and wait times from the secure admin route.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="bg-slate-950/50 rounded-lg p-4 border border-blue-500/20">
-                    <div className="flex items-center gap-2 mb-2">
-                      <kbd className="px-2 py-1 text-xs bg-slate-700 text-white rounded border border-slate-500">Ctrl</kbd>
-                      <span className="text-blue-300">+</span>
-                      <kbd className="px-2 py-1 text-xs bg-slate-700 text-white rounded border border-slate-500">Shift</kbd>
-                      <span className="text-blue-300">+</span>
-                      <kbd className="px-2 py-1 text-xs bg-slate-700 text-white rounded border border-slate-500">S</kbd>
-                    </div>
-                    <p className="text-sm text-blue-200">Business Status</p>
-                    <p className="text-xs text-blue-300/70 mt-1">Open/Closed & Weather Alerts</p>
-                  </div>
-                  <div className="bg-slate-950/50 rounded-lg p-4 border border-blue-500/20">
-                    <div className="flex items-center gap-2 mb-2">
-                      <kbd className="px-2 py-1 text-xs bg-slate-700 text-white rounded border border-slate-500">Ctrl</kbd>
-                      <span className="text-blue-300">+</span>
-                      <kbd className="px-2 py-1 text-xs bg-slate-700 text-white rounded border border-slate-500">Shift</kbd>
-                      <span className="text-blue-300">+</span>
-                      <kbd className="px-2 py-1 text-xs bg-slate-700 text-white rounded border border-slate-500">P</kbd>
-                    </div>
-                    <p className="text-sm text-blue-200">Promotion Manager</p>
-                    <p className="text-xs text-blue-300/70 mt-1">Manage Special Offers</p>
-                  </div>
-                  <div className="bg-slate-950/50 rounded-lg p-4 border border-blue-500/20">
-                    <div className="flex items-center gap-2 mb-2">
-                      <kbd className="px-2 py-1 text-xs bg-slate-700 text-white rounded border border-slate-500">Ctrl</kbd>
-                      <span className="text-blue-300">+</span>
-                      <kbd className="px-2 py-1 text-xs bg-slate-700 text-white rounded border border-slate-500">Shift</kbd>
-                      <span className="text-blue-300">+</span>
-                      <kbd className="px-2 py-1 text-xs bg-slate-700 text-white rounded border border-slate-500">X</kbd>
-                    </div>
-                    <p className="text-sm text-blue-200">Wait Time Manager</p>
-                    <p className="text-xs text-blue-300/70 mt-1">Update Service Wait Times</p>
-                  </div>
-                </div>
-                <p className="text-xs text-blue-300/60 mt-4 italic">
-                  ℹ️ These tools work in your browser and don't require publishing. Changes are saved locally and persist across sessions.
+                <p className="text-blue-300/70 text-xs mt-2">
+                  Need access? Contact management for the current passcode.
                 </p>
               </div>
             </div>
+            <Button
+              onClick={() => window.open('/admin', '_self')}
+              className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold hover:from-yellow-400 hover:to-yellow-500"
+            >
+              Go to Admin Portal
+            </Button>
           </div>
         </div>
 

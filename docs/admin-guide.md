@@ -1,40 +1,41 @@
 # Admin & Staff Guide
 
-This site ships with browser-based admin overlays so front-desk staff can update messaging during the day. These tools are **not authenticated** and **store everything in localStorage**—treat them as a prototype until a secure backend is built.
+The Spa Car Wash site now exposes all management tools through the dedicated `/admin` route. Updates still save to the current browser's `localStorage`, but access is gated by a passcode so only staff can open the overlays during demos or daily ops.
 
 ## Accessing Admin Panels
-- Focus the website tab, then use the following shortcuts:
-  - `Ctrl+Shift+S` – Business status (open/closed, alerts, custom message)
-  - `Ctrl+Shift+P` – Promotions manager (create/edit promo cards)
-  - `Ctrl+Shift+X` – Wait-time manager (update service estimates)
-- Shortcuts use the `Ctrl` key even on macOS.
-- Each overlay has a close button; data saves automatically when you submit a form inside the panel.
+1. Visit `https://<your-domain>/admin` (link is also in the site footer under “Staff Admin Portal”).
+2. Enter the passcode defined in `VITE_ADMIN_PASSCODE` (management controls distribution).
+3. After unlocking, use the dashboard buttons to open:
+   - **Business Status** – toggle open/closed, weather alerts, and next reopening time.
+   - **Promotions** – edit hero banners, floating CTA, and pop-up offers.
+   - **Wait Times** – adjust estimated times for Express, Deluxe, Ultimate, and Detailing services.
+4. Click “Sign Out” when you’re done or close your browser to clear the session.
+
+_The portal remembers your session in `sessionStorage` until you log out or close the tab._
 
 ### Where data is stored
 | Data | Storage key | Notes |
 |------|-------------|-------|
-| Business status | `spaCarWashStatus` | Controls header badge and announcement text |
-| Promotions | `spaCarWashPromotions` | Feeds banner, hero promo slot, floating button, popup |
-| Wait times | `spaCarWashWaitTimes` | Powers header badges and wait-time cards |
+| Business status | `spaCarWashStatus` | Powers header badge + alert ribbon |
+| Promotions | `spaCarWashPromotions` | Drives banner, hero insert, floating CTA, popup |
+| Wait times | `spaCarWashWaitTimes` | Feeds wait-time chips and cards |
 
-Clearing browser storage or using another computer results in a fresh state.
+Clearing browser storage or using another computer results in a fresh state. Keep a shared spreadsheet or take screenshots if multiple locations need to stay in sync.
 
 ## Daily Usage Checklist
-1. Open the website on the front-desk computer.
-2. Press `Ctrl+Shift+S` → mark the business as OPEN or CLOSED and add any alerts (weather, maintenance, etc.).
-3. Press `Ctrl+Shift+X` → enter current wait times for Express, Deluxe, Ultimate, and Detailing services.
-4. Optional: `Ctrl+Shift+P` → rotate promotions or highlight same-day specials.
-5. Throughout the day, repeat Step 3 when wait times change. At closing, update the status panel to CLOSED.
+1. Unlock the `/admin` portal when you arrive.
+2. Open **Business Status** → set OPEN or CLOSED and add any weather notes.
+3. Open **Wait Times** → enter the latest estimates for each service tier.
+4. Optional: update **Promotions** to highlight any same-day specials or reminders.
+5. Throughout the day, revisit Wait Times if the lobby fills up. At closing, flip Business Status to CLOSED and set the next opening time.
 
 ## Crisp Chat
-- Crisp is embedded globally via `src/layout/CrispChat.tsx` with website ID `9ad0b13f-c4a2-4189-a644-5233bbbcf561`.
-- To update the ID:
-  1. Log into https://app.crisp.chat/
-  2. Copy the Website ID from Settings → Websites
-  3. Replace the ID inside `CrispChat.tsx`
-- Staff can open the chat manually from the Help section or by running `window.$crisp.push(["do", "chat:open"])` in the browser console.
+- Crisp remains embedded globally via `src/layout/CrispChat.tsx` (ID `9ad0b13f-c4a2-4189-a644-5233bbbcf561`).
+- Update the ID whenever you switch Crisp workspaces.
+- Staff can still trigger the widget from the Help section or by running `window.$crisp.push(["do", "chat:open"])` in the console for testing.
 
 ## Limitations & Future Hardening
-- Anyone with access to the public site can trigger the shortcuts; add authentication or an admin route before launch.
-- Promotions and wait times are not shared across devices; a lightweight backend or Firebase store would be needed for multi-device sync.
-- Booking form submissions currently log to the console; integrate email, CRM, or webhook delivery for production.
+- Data is still local to the browser. For multi-terminal consistency, add a shared backend or cloud store.
+- Passcode protection is client-side only; use unique URLs and change the passcode regularly until a real auth service is added.
+- Booking submissions now POST to `VITE_BOOKING_ENDPOINT`, but promotions/status/wait times still rely on localStorage.
+- Consider adding audit logs, role-based access, and automatic logout timers for production deployments.

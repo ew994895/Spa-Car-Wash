@@ -11,7 +11,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [businessStatus, setBusinessStatus] = useState<BusinessStatus>(getBusinessStatus());
 
-  // Load status on mount (keyboard shortcut handled in Home.tsx)
+  // Load status on mount and listen for updates from the admin portal
   useEffect(() => {
     setBusinessStatus(getBusinessStatus());
     
@@ -51,7 +51,7 @@ export function Header() {
                 {/* Business Status Badge */}
                 <div
                   className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700/50"
-                  title="Press Ctrl+Shift+S to update status"
+                  title="Staff: update status inside the admin portal"
                 >
                   <div
                     className={`w-2 h-2 rounded-full ${
