@@ -1,4 +1,4 @@
-# Car Wash Project Notes
+# Developer Overview
 
 ## 1. High-Level Overview
 - **What it is:** A React + Vite front-end for Spa Car Wash & Detailing Center. The site covers the full marketing journey (hero, services, testimonials, pricing, contact) and exposes in-browser admin switches (promotions, wait times, business status) so staff can keep the landing page fresh without a backend.
@@ -19,8 +19,8 @@ The repository root (`Spa-Car-Wash/`) is now the true app. Key directories:
 - `README.md` – Product/feature overview and quick start.
 - `package.json` – Scripts (`dev`, `build`, `preview`) + dependency graph.
 - `vite.config.ts` – React + Tailwind plugins, `@ → src` alias.
-- `setup.sh` / `setup.bat` – Helper installers referenced by the docs.
-- `docs/cleanup-summary.md`, `docs/notes.md` (this file), and the admin/training guides listed in the README.
+- `setup.sh` / `setup.bat` – Optional helper installers.
+- `docs/` – contains this overview, the staff/admin playbook, setup instructions, attributions, and cleanup logs.
 
 ### `src/app`
 - `App.tsx` – Wraps the router using `RouterProvider`.
@@ -73,16 +73,20 @@ Radix-driven primitives (buttons, dialogs, accordions, tooltips, etc.), layout h
 - Booking form currently logs to console; integration point for backend/email lives around `BookingForm.tsx`'s `handleSubmit`.
 - Crisp chat uses site ID `9ad0b13f-c4a2-4189-a644-5233bbbcf561`. No other env vars.
 
+### LocalStorage Schema Reference
+| Key | Interface / Shape | Primary Files |
+|-----|-------------------|---------------|
+| `spaCarWashStatus` | `BusinessStatus` (`isOpen`, `reason`, `updatedAt`, optional `nextOpenDate` + `nextOpenTime`, `useCustomTime`) | `src/features/status/StatusAdmin.tsx` |
+| `spaCarWashPromotions` | `Promotion[]` with placement flags (`banner`, `popup`, `heroTop`, `above*`, `floating`) and optional CTA data | `src/features/promotions/*` |
+| `spaCarWashWaitTimes` | `WaitTimeData` -> `{ services: { serviceName, waitTime, traffic, enabled }[], updatedAt }` | `src/features/wait-times/*` |
+
+Color thresholds for wait times live in `WaitTimeBadge.tsx` (`low < 20`, `medium < 35`, `high < 50`, `very-high ≥ 50`). Promotions apply simple date checks inside `PromotionAdmin.tsx` to hide expired campaigns.
+
 ## 6. Local Development & Build
+See `docs/getting-started.md` for the canonical commands. In short:
 ```bash
-# Clone + install (run from repo root)
-cd /Users/ethanwitkowski/Spa-Car-Wash
 npm install
-
-# Start dev server
-npm run dev  # launches Vite on http://localhost:5173
-
-# Production build
-npm run build  # outputs to dist/
+npm run dev
+npm run build
+npm run preview
 ```
-The docs (`docs/QUICK_START.md`, `docs/SETUP_AND_DEPLOYMENT_GUIDE.md`, etc.) mirror these steps for non-developers.

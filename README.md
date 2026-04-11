@@ -1,428 +1,97 @@
-# 🚗 Spa Car Wash & Detailing Center - Official Website
+# Spa Car Wash Website
 
-> Modern, premium car wash website with powerful admin controls built with React + Vite + Tailwind CSS
+A React + Vite + Tailwind marketing site for Spa Car Wash & Detailing Center. The UI showcases wash packages, long-form detailing content, testimonials, and contact/help options. It also includes **prototype** admin overlays (status, promotions, wait times) so staff can experiment with messaging before a proper backend exists.
 
-![Website Status](https://img.shields.io/badge/Status-Production%20Ready-success)
-![React](https://img.shields.io/badge/React-18.3.1-blue)
-![Vite](https://img.shields.io/badge/Vite-6.3.5-purple)
-![Tailwind](https://img.shields.io/badge/Tailwind-4.1.12-cyan)
+> **Project status:** working frontend prototype. All admin data persists only in the browser’s `localStorage` and there is no authentication or server API yet.
 
----
+## Table of Contents
+1. [What’s Included](#whats-included)
+2. [Current Limitations](#current-limitations)
+3. [Tech Stack](#tech-stack)
+4. [Getting Started](#getting-started)
+5. [Project Structure](#project-structure)
+6. [Admin & Data Flow](#admin--data-flow)
+7. [Roadmap Ideas](#roadmap-ideas)
+8. [Documentation](#documentation)
 
-## 🎯 Quick Start
+## What’s Included
+### Visitor Experience
+- Responsive landing page with hero, service cards, detailing long-form content, testimonials, and contact/help CTAs
+- Crisp chat widget wired to `window.CRISP_WEBSITE_ID = 9ad0b13f-c4a2-4189-a644-5233bbbcf561`
+- Static booking form (validates input and shows success state)
+- Map/location card, call/email buttons, and copy-to-clipboard helpers
 
-### Already Running in Figma Make? ✅
+### Staff Controls (prototype)
+- Promotion placements: top banner, hero insert, floating CTA, and session popup
+- Business status ribbon (open/closed + alert messaging)
+- Wait-time badges for each service category
+- Keyboard shortcuts (`Ctrl+Shift+S/P/X`) to open overlays directly
 
-**The website is live right now!** Just press these shortcuts to test admin features:
+## Current Limitations
+- **Local-only state:** Promotions, wait-times, and status data stay in the current browser via `localStorage`. Switching computers or clearing storage resets everything.
+- **No authentication:** Anyone on the public site could trigger the admin overlays. Add auth or an admin route before production launch.
+- **Booking form is passive:** Submissions are logged to the console only. Hook up email/CRM/webhook handling before going live.
+- **Single Crisp ID:** Update `src/layout/CrispChat.tsx` if you need to point to another Crisp workspace.
 
-- **`Ctrl+Shift+S`** → Business Status (Open/Closed)
-- **`Ctrl+Shift+P`** → Promotion Manager
-- **`Ctrl+Shift+X`** → Wait Time Manager
+## Tech Stack
+| Tool | Version | Notes |
+|------|---------|-------|
+| React | 18.3.1 | UI library |
+| React Router | 7.13.0 | Routing between landing + detail pages |
+| Vite | 6.4.x | Dev server + bundler |
+| Tailwind CSS | 4.1.x | Styling via `@tailwindcss/vite` |
+| TypeScript | 5.6.x | Strict mode + path aliases (`@/*`) |
+| Radix UI + Lucide | latest | UI primitives & icons |
+| Crisp Chat | – | Embedded live chat widget |
 
-Press **F12** to see console messages confirming it works!
-
----
-
-## 📥 Download & Run Locally
-
-### Prerequisites
-
-- **Node.js 18+** → [Download](https://nodejs.org/)
-
-### Installation
-
-**Windows:**
-1. Extract ZIP file
-2. Double-click `setup.bat`
-3. Wait for installation (2-5 min)
-4. Press Y to start server
-
-**Mac/Linux:**
+## Getting Started
+See `docs/getting-started.md` for detailed instructions. The short version:
 ```bash
-# Extract ZIP, then:
-cd spa-car-wash
-bash setup.sh
-# Press Y to start server
-```
-
-**Manual Installation:**
-```bash
-npm install      # Install dependencies
-npm run dev      # Start dev server
-```
-
-Open **http://localhost:5173/** in your browser!
-
----
-
-## 🚀 Deploy to Production
-
-### Build for Deployment
-
-```bash
-npm run build
-# Creates dist/ folder with optimized files
-```
-
-### Deploy Options
-
-| Platform | Method | Time | Cost |
-|----------|--------|------|------|
-| **Netlify** | Drag & drop `dist/` folder | 2 min | Free |
-| **Vercel** | Import GitHub repo | 3 min | Free |
-| **GitHub Pages** | Push to gh-pages branch | 5 min | Free |
-| **Traditional Host** | FTP upload to `public_html` | 10 min | Varies |
-
-**Recommended**: Netlify (easiest, free, fast)
-
----
-
-## 🎮 Admin Features
-
-### Keyboard Shortcuts
-
-All admin controls work via keyboard shortcuts - **no login required!**
-
-| Shortcut | Feature | Purpose |
-|----------|---------|---------|
-| `Ctrl+Shift+S` | **Business Status** | Set OPEN/CLOSED, weather alerts, custom hours |
-| `Ctrl+Shift+P` | **Promotion Manager** | Create campaigns, discounts, special offers |
-| `Ctrl+Shift+X` | **Wait Time Manager** | Update service wait times (15-60 min) |
-
-### How It Works
-
-- All data saves to **browser localStorage**
-- No backend or database needed
-- Changes persist across page refreshes
-- Each computer maintains its own settings
-- Perfect for front desk staff computer
-
----
-
-## 🌟 Features
-
-### Customer-Facing
-
-✅ **Modern Premium Design** - Blue/red/gold brand colors  
-✅ **Responsive Layout** - Works on all devices  
-✅ **Live Business Status** - Real-time open/closed with weather alerts  
-✅ **Wait Time Display** - Current service wait times  
-✅ **Wash Packages** - Express to Elite options ($16-$43)  
-✅ **Detailing Services** - 16 professional services ($60-$450)  
-✅ **Membership Program** - Prepaid wash card system  
-✅ **Online Booking** - Appointment scheduling  
-✅ **24/7 Chat Support** - Crisp chatbot integration  
-✅ **Testimonials** - Customer reviews  
-✅ **Interactive Map** - Google Maps location  
-✅ **Contact Form** - Easy communication  
-✅ **Promotional System** - Dynamic offers & campaigns  
-
-### Staff Admin Tools
-
-✅ **Business Status Control** - Update hours, closures, weather  
-✅ **Promotion Manager** - Create & schedule campaigns  
-✅ **Wait Time Manager** - Real-time service updates  
-✅ **No Login Required** - Keyboard shortcuts only  
-✅ **Browser-Based** - Works on any computer  
-✅ **Instant Updates** - Changes appear immediately  
-
----
-
-## 📁 Project Structure
-
-```
-spa-car-wash/
-├── docs/                        # Admin + onboarding guides
-├── src/
-│   ├── app/                     # App shell + router
-│   ├── components/
-│   │   └── ui/                  # Reusable primitives (buttons, cards, etc.)
-│   ├── features/                # Domain modules (booking, promos, status, wait)
-│   ├── layout/                  # Global chrome (header, footer, Crisp chat)
-│   ├── pages/                   # Route-level screens
-│   ├── sections/                # Marketing blocks used on Home
-│   └── styles/                  # Tailwind entry + theme tokens
-├── tsconfig*.json               # TypeScript + path aliases
-├── package.json                 # Dependencies & scripts
-├── vite.config.ts               # Vite configuration
-├── setup.bat / setup.sh         # Helper scripts
-└── README.md                    # This file
-```
-
-### Developer Standards
-
-- **TypeScript-first** – strict compiler settings enforced via `tsconfig.json` and shared aliases (`@/*`).
-- **Feature-first folders** – every domain lives under `src/features/<domain>` with colocated UI/state helpers.
-- **Pure layout + sections** – shared marketing sections stay in `src/sections`, while `src/layout` holds the persistent chrome (nav, footer, chat, floating promos).
-- **Crisp integration** – `src/layout/CrispChat.tsx` boots the live chat widget and exposes helpers for CTAs (e.g., Help → "Start Chat Now").
-
----
-
-## 🛠️ Tech Stack
-
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **React** | 18.3.1 | UI Framework |
-| **TypeScript** | 5.x | Type Safety |
-| **Vite** | 6.3.5 | Build Tool |
-| **Tailwind CSS** | 4.1.12 | Styling |
-| **React Router** | 7.13.0 | Navigation |
-| **Radix UI** | Latest | UI Components |
-| **Lucide React** | 0.487.0 | Icons |
-| **Motion** | 12.23.24 | Animations |
-| **Crisp Chat** | Latest | Live Chat |
-
----
-
-## 📚 Documentation
-
-### Quick References
-
-- **[QUICK_START.md](./docs/QUICK_START.md)** - Get started in 2 minutes
-- **[SETUP_AND_DEPLOYMENT_GUIDE.md](./docs/SETUP_AND_DEPLOYMENT_GUIDE.md)** - Complete technical guide
-
-### Admin Guides
-
-- **[ADMIN_ACCESS_GUIDE.md](./docs/ADMIN_ACCESS_GUIDE.md)** - Detailed admin control instructions
-- **[ADMIN_CHEAT_SHEET.md](./docs/ADMIN_CHEAT_SHEET.md)** - One-page reference card
-- **[PROMOTION_CONTROLS_GUIDE.md](./docs/PROMOTION_CONTROLS_GUIDE.md)** - Promotion system explained
-- **[WAIT_TIME_GUIDE.md](./docs/WAIT_TIME_GUIDE.md)** - Wait time management
-
-### Additional Docs
-
-- **[CRISP_SETUP_GUIDE.md](./docs/CRISP_SETUP_GUIDE.md)** - Chat widget configuration
-- **[WEBSITE_FEATURES_BREAKDOWN.md](./docs/WEBSITE_FEATURES_BREAKDOWN.md)** - Complete feature list
-- **[ATTRIBUTIONS.md](./docs/ATTRIBUTIONS.md)** - Credits & licenses
-
----
-
-## 🎓 Staff Training
-
-### For Front Desk Staff (2-Minute Training)
-
-**Morning Routine:**
-1. Open website: `spacarwash.com` (or localhost)
-2. Press `Ctrl+Shift+S`
-3. Set status to **OPEN**
-4. Click **Save**
-5. Press `Ctrl+Shift+X`
-6. Set current wait times
-7. Click **Save**
-
-**During the Day:**
-- Update wait times as needed: `Ctrl+Shift+X`
-
-**Evening Routine:**
-1. Press `Ctrl+Shift+S`
-2. Set status to **CLOSED**
-3. Click **Save**
-
-**That's it!** ✅
-
----
-
-## 🔍 Browser Storage
-
-### Where Data is Saved
-
-All admin settings save to **localStorage**:
-
-| Storage Key | Data |
-|-------------|------|
-| `spaCarWashStatus` | Business status, weather alerts, hours |
-| `spaCarWashPromotions` | Active campaigns, discounts |
-| `spaCarWashWaitTimes` | Service wait times, traffic levels |
-
-### View Saved Data
-
-**Chrome/Edge:**
-1. Press **F12**
-2. Go to **Application** tab
-3. Expand **Local Storage**
-4. Click your domain
-
-**Firefox:**
-1. Press **F12**
-2. Go to **Storage** tab
-3. Expand **Local Storage**
-
-### Clear Data (Reset)
-
-In browser console (F12 → Console):
-```javascript
-localStorage.clear(); // Clear all
-// OR
-localStorage.removeItem('spaCarWashStatus');
-localStorage.removeItem('spaCarWashPromotions');
-localStorage.removeItem('spaCarWashWaitTimes');
-```
-
----
-
-## 🐞 Troubleshooting
-
-### Admin Shortcuts Don't Work
-
-1. Click anywhere on webpage (focus the page)
-2. Open console (F12) - look for initialization message
-3. Refresh page (Ctrl+R)
-4. Use **Ctrl** key (not Cmd on Mac)
-5. Try different browser
-
-### npm install Fails
-
-```bash
-# Clear cache and retry
-npm cache clean --force
-rm -rf node_modules
 npm install
+npm run dev      # http://localhost:5173
+npm run build    # outputs dist/
+npm run preview  # serves the production build
+```
+Support scripts `setup.sh` / `setup.bat` simply wrap the install+dev process.
+
+## Project Structure
+```
+Spa-Car-Wash/
+├── docs/                     # setup, admin, developer, cleanup, attributions
+├── src/
+│   ├── app/                  # Router shell
+│   ├── components/ui/        # Radix-based primitives
+│   ├── features/             # booking, promotions, status, wait-times modules
+│   ├── layout/               # header, footer, Crisp chat, back-to-top
+│   ├── pages/                # route-level screens (home + detail pages)
+│   ├── sections/             # marketing sections that compose the homepage
+│   └── styles/               # Tailwind + theme CSS
+├── index.html                # root HTML shell
+├── package.json              # scripts + dependencies
+├── postcss.config.mjs
+├── setup.bat / setup.sh
+├── tsconfig.json / tsconfig.node.json
+└── vite.config.ts
 ```
 
-### Port Already in Use
+## Admin & Data Flow
+- Keyboard shortcuts (Ctrl+Shift+S/P/X) toggle the admin overlays. The logic lives in `src/pages/Home.tsx`.
+- Each panel writes to `localStorage` and dispatches custom events so the UI updates live:
+  - `spaCarWashStatus` → header badges + hero alert
+  - `spaCarWashPromotions` → top banner, hero promo slot, floating CTA, popup
+  - `spaCarWashWaitTimes` → wait-time badges/cards
+- Crisp chat loads globally via `src/layout/CrispChat.tsx`. Sections can open the widget by pushing `window.$crisp.push(["do", "chat:open"])`.
 
-```bash
-# Use different port
-npm run dev -- --port 3000
-```
+## Roadmap Ideas
+1. Add authentication + backend persistence for promotions/status/wait-times.
+2. Wire `BookingForm` to a form service, email notification, or CRM integration.
+3. Centralize service/testimonial data into `src/data/` to simplify components.
+4. Add automated tests (unit + integration) for the admin flows.
+5. Replace keyboard shortcuts with an authenticated admin dashboard.
 
-### Changes Don't Save
-
-- Check if localStorage is enabled (not in Private/Incognito mode)
-- Check browser console for errors
-- Verify localStorage works:
-  ```javascript
-  localStorage.setItem('test', 'works');
-  console.log(localStorage.getItem('test')); // Should show 'works'
-  ```
-
----
-
-## 📞 Business Information
-
-**Spa Car Wash & Detailing Center**  
-📍 734 Lancaster Ave, Berwyn, PA 19312  
-☎️ (610) 695-0711  
-✉️ info@spacarwash.com  
-🌐 spacarwash.com  
-
-**Hours:**  
-Monday-Saturday: 8:00 AM - 6:00 PM  
-Sunday: 9:00 AM - 5:00 PM  
-
-**Service Area:**  
-30-45 minutes from Berwyn, PA  
-Serving the greater Philadelphia area  
-
----
-
-## 🏆 Features Highlight
-
-### What Makes This Website Special
-
-✨ **No Backend Needed** - Runs entirely in browser  
-✨ **Instant Updates** - Admin changes appear immediately  
-✨ **Easy for Staff** - Simple keyboard shortcuts  
-✨ **Mobile Responsive** - Perfect on all devices  
-✨ **Premium Design** - Modern, professional look  
-✨ **SEO Friendly** - Optimized for search engines  
-✨ **Fast Loading** - Vite optimization  
-✨ **Cost Effective** - Free hosting options  
-
----
-
-## 📊 Performance
-
-- ⚡ **Lighthouse Score**: 90+ (Performance, Best Practices)
-- 📦 **Build Size**: ~500KB (gzipped)
-- 🚀 **Load Time**: <2 seconds
-- 📱 **Mobile Friendly**: 100%
-- ♿ **Accessibility**: WCAG 2.1 AA compliant
-
----
-
-## 🔐 Security & Privacy
-
-- ✅ No user authentication required
-- ✅ No personal data collected by admin tools
-- ✅ localStorage data stays on local device
-- ✅ HTTPS ready (when deployed)
-- ✅ No external API calls for admin features
-- ✅ Crisp chat widget follows GDPR guidelines
-
----
-
-## 🚧 Maintenance
-
-### Update Dependencies
-
-```bash
-# Check for updates
-npm outdated
-
-# Update all packages
-npm update
-
-# Update specific package
-npm install package-name@latest
-```
-
-### Build Optimization
-
-The build process automatically:
-- Minifies JavaScript and CSS
-- Optimizes images
-- Code splits for faster loading
-- Generates source maps for debugging
-
----
-
-## 📝 License
-
-Proprietary - © 2026 Spa Car Wash & Detailing Center
-
----
-
-## ✅ Checklist: Before Going Live
-
-- [ ] Test all admin shortcuts (Ctrl+Shift+S/P/X)
-- [ ] Update Crisp chat website ID
-- [ ] Test on mobile devices
-- [ ] Test on multiple browsers (Chrome, Firefox, Safari, Edge)
-- [ ] Set initial business status
-- [ ] Set realistic wait times
-- [ ] Create welcome promotion
-- [ ] Verify Google Maps location
-- [ ] Test contact form
-- [ ] Test booking system
-- [ ] Set up custom domain
-- [ ] Train staff on admin controls
-- [ ] Print admin cheat sheet for front desk
-- [ ] Bookmark website on staff computers
-
----
-
-## 🎉 You're Ready!
-
-This website is **production-ready** and includes everything you need:
-
-✅ Professional design  
-✅ All features working  
-✅ Admin controls active  
-✅ Mobile responsive  
-✅ Documentation complete  
-✅ Easy to deploy  
-
-**Next Steps:**
-1. Test the admin shortcuts now (Ctrl+Shift+S/P/X)
-2. Read the [QUICK_START.md](./docs/QUICK_START.md) guide
-3. Deploy using Netlify or your preferred platform
-4. Train your staff (takes 2 minutes!)
-5. Go live! 🚀
-
----
-
-**Questions?** Check the documentation files or open browser console (F12) for debugging!
-
-**Last Updated**: April 10, 2026  
-**Version**: 2.0  
-**Status**: Production Ready ✅
+## Documentation
+- `docs/getting-started.md` – installation, scripts, deployment
+- `docs/developer-overview.md` – architecture notes and component breakdowns
+- `docs/admin-guide.md` – staff instructions + limitations
+- `docs/ATTRIBUTIONS.md` – asset and library credits
+- `docs/restructure-summary.md` & `docs/repo-cleanup-summary.md` – history of major refactors
