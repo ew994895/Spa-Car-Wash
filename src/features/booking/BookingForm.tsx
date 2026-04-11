@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Calendar, User, Mail, Phone, Car, MessageSquare, CheckCircle } from "lucide-react";
+import { Calendar, User, Mail, Phone, Car, MessageSquare, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
@@ -8,18 +8,24 @@ interface BookingFormProps {
   servicePrice: string;
 }
 
+const BOOKING_ENDPOINT = import.meta.env.VITE_BOOKING_ENDPOINT?.trim();
+const initialFormData = {
+  name: "",
+  email: "",
+  phone: "",
+  vehicleType: "",
+  vehicleDetails: "",
+  preferredDate: "",
+  preferredTime: "",
+  notes: "",
+};
+
 export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    vehicleType: "",
-    vehicleDetails: "",
-    preferredDate: "",
-    preferredTime: "",
-    notes: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState(initialFormData);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -28,37 +34,80 @@ export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // In a real implementation, this would send data to a backend
-    console.log("Booking submitted:", { ...formData, service: serviceName });
-    setSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        vehicleType: "",
-        vehicleDetails: "",
-        preferredDate: "",
-        preferredTime: "",
-        notes: "",
-      });
-    }, 3000);
+  const resetForm = () => {
+    setFormData(initialFormData);
   };
 
-  if (submitted) {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (honeypot.trim().length > 0) {
+      resetForm();
+      setStatus("success");
+      setStatusMessage("Thanks for reaching out. We'll confirm your appointment shortly.");
+      return;
+    }
+
+    const digitsOnly = formData.phone.replace(/[^0-9]/g, "");
+    if (digitsOnly.length < 10) {
+      setStatus("error");
+      setStatusMessage("Please provide a valid phone number so we can confirm your appointment.");
+      return;
+    }
+
+    if (!BOOKING_ENDPOINT) {
+      setStatus("error");
+      setStatusMessage("Booking submissions are temporarily unavailable. Please call 610-695-0711 to schedule.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus("idle");
+    setStatusMessage("");
+
+    const payload = {
+      ...formData,
+      serviceName,
+      servicePrice,
+      submittedAt: new Date().toISOString(),
+      source: "spa-car-wash-website",
+    };
+
+    try {
+      const response = await fetch(BOOKING_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Failed to submit booking request.");
+      }
+
+      setStatus("success");
+      setStatusMessage("Thanks! Our team will reach out by phone or email to confirm the appointment details.");
+      resetForm();
+    } catch (error) {
+      console.error("Booking submission failed", error);
+      setStatus("error");
+      setStatusMessage(
+        "We couldn't submit your request online. Please call 610-695-0711 and we'll schedule you right away."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (status === "success") {
     return (
       <Card className="bg-gradient-to-br from-green-900/40 to-green-800/40 border-2 border-green-500/40 p-8">
         <div className="text-center">
           <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
           <h3 className="text-2xl font-bold text-white mb-2">Booking Request Received!</h3>
-          <p className="text-green-100 mb-4">
-            Thank you for your interest in our {serviceName}. We'll contact you shortly to confirm your appointment.
-          </p>
+          <p className="text-green-100 mb-4">{statusMessage}</p>
           <p className="text-green-200 text-sm">
             You can also call us directly at <a href="tel:610-695-0711" className="font-bold text-white hover:text-green-300">610-695-0711</a>
           </p>
@@ -77,6 +126,24 @@ export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Hidden field for spam bots */}
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          className="hidden"
+        />
+
+        {status === "error" && (
+          <div className="flex items-start gap-3 bg-red-900/30 border border-red-500/40 text-red-100 rounded-lg p-4" role="alert">
+            <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
+            <p className="text-sm" aria-live="polite">{statusMessage}</p>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Name */}
           <div>
@@ -230,9 +297,17 @@ export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
         <div className="flex flex-col sm:flex-row gap-4">
           <Button
             type="submit"
-            className="flex-1 bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold py-4 text-lg shadow-lg"
+            disabled={isSubmitting}
+            className="flex-1 bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-500 hover:to-yellow-600 text-black font-bold py-4 text-lg shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
           >
-            Submit Booking Request
+            {isSubmitting ? (
+              <span className="flex items-center justify-center gap-2">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                Sending Request...
+              </span>
+            ) : (
+              "Submit Booking Request"
+            )}
           </Button>
           <Button
             type="button"
@@ -245,7 +320,7 @@ export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
           </Button>
         </div>
 
-        <p className="text-blue-300 text-sm text-center">
+        <p className="text-blue-300 text-sm text-center" aria-live="polite">
           * We'll contact you to confirm availability and finalize your appointment details.
         </p>
       </form>

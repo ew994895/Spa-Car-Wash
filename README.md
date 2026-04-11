@@ -56,6 +56,8 @@ npm run preview    # serve the production build locally
 ```
 `setup.sh` / `setup.bat` simply wrap the install + dev commands for non-technical operators.
 
+> Booking submissions require a POST endpoint (e.g., Formspree, Zapier, or a custom API). Configure `VITE_BOOKING_ENDPOINT` in a `.env` file to ensure requests are delivered to the business.
+
 ---
 
 ## Project Structure
@@ -84,6 +86,7 @@ Spa-Car-Wash/
 - `docs/setup.md` – install, scripts, deployment checklist
 - `docs/admin-guide.md` – how staff should use the prototype overlays + Crisp
 - `docs/developer-overview.md` – architecture, data flow, localStorage schema
+- `docs/booking-integration-summary.md` – explains the booking webhook/env configuration
 - `docs/ATTRIBUTIONS.md` – assets and license notes
 - `docs/content-refresh-summary.md` – snapshot of the latest on-site content updates
 - `docs/archived/` – historical restructure/cleanup logs
