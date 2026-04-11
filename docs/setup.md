@@ -37,5 +37,5 @@ npm install
 
 ## Known Limitations
 - All admin settings are stored in the current browser's `localStorage`. Clearing browser data resets them.
-- There is no authentication or server API; treat the admin overlays as demo tooling until a backend is added.
-- The booking form currently logs submissions to the console. Wire it to email, a webhook, or a backend service before production launch.
+- The `/admin` route is gated by a passcode only; add a real auth provider before production.
+- Booking submissions depend on an external endpoint (`VITE_BOOKING_ENDPOINT`). If it is unreachable, guests are prompted to call instead; add a backend for guaranteed delivery.
