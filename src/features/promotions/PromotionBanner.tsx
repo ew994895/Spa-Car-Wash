@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { X, Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Promotion } from "./PromotionAdmin";
+import { Promotion, PROMO_STORAGE_KEY } from "./PromotionAdmin";
+import { readJson, writeJson } from "@/lib/storage";
 
 export function PromotionBanner() {
   const [promotions, setPromotions] = useState<Promotion[]>([]);
@@ -22,20 +23,15 @@ export function PromotionBanner() {
 
   useEffect(() => {
     filterBannerPromotions();
-  }, [promotions]);
+  }, [promotions, dismissed]);
 
   const loadPromotions = () => {
-    const stored = localStorage.getItem('spa_promotions');
-    if (stored) {
-      setPromotions(JSON.parse(stored));
-    }
+    setPromotions(readJson<Promotion[]>(PROMO_STORAGE_KEY, []));
   };
 
   const loadDismissed = () => {
-    const stored = localStorage.getItem('spa_dismissed_banners');
-    if (stored) {
-      setDismissed(new Set(JSON.parse(stored)));
-    }
+    const stored = readJson<string[]>('spa_dismissed_banners', []);
+    setDismissed(new Set(stored));
   };
 
   const filterBannerPromotions = () => {
@@ -56,15 +52,15 @@ export function PromotionBanner() {
     const updated = new Set(dismissed);
     updated.add(promoId);
     setDismissed(updated);
-    localStorage.setItem('spa_dismissed_banners', JSON.stringify([...updated]));
+    writeJson('spa_dismissed_banners', [...updated]);
   };
 
   const handleBannerClick = (promo: Promotion) => {
     // Track click
     const updated = promotions.map(p => 
-      p.id === promo.id ? { ...p, clickCount: p.clickCount + 1 } : p
+      p.id === promo.id ? { ...p, clickCount: (p.clickCount ?? 0) + 1 } : p
     );
-    localStorage.setItem('spa_promotions', JSON.stringify(updated));
+    writeJson(PROMO_STORAGE_KEY, updated);
     
     // Scroll to promotion section
     const targetSection = getTargetSection(promo.placement);

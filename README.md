@@ -92,6 +92,7 @@ Spa-Car-Wash/
 - `docs/ATTRIBUTIONS.md` – assets and license notes
 - `docs/content-refresh-summary.md` – snapshot of the latest on-site content updates
 - `docs/admin-hardening-summary.md` – outlines how the admin portal is locked down today
+- `docs/reliability-audit-summary.md` – latest stability/accessibility findings
 - `docs/archived/` – historical restructure/cleanup logs
 - `docs/final-polish-summary.md` – this cleanup summary
 

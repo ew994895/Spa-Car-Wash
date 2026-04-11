@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { X, Sparkles, Gift, Tag, Calendar, ArrowRight, Phone, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Promotion } from "./PromotionAdmin";
+import { Promotion, PROMO_STORAGE_KEY } from "./PromotionAdmin";
+import { readJson, writeJson } from "@/lib/storage";
 
 export function PromotionPopup() {
   const [promotions, setPromotions] = useState<Promotion[]>([]);
@@ -25,10 +26,7 @@ export function PromotionPopup() {
   }, [promotions]);
 
   const loadPromotions = () => {
-    const stored = localStorage.getItem('spa_promotions');
-    if (stored) {
-      setPromotions(JSON.parse(stored));
-    }
+    setPromotions(readJson<Promotion[]>(PROMO_STORAGE_KEY, []));
   };
 
   const checkForPopup = () => {
@@ -60,9 +58,9 @@ export function PromotionPopup() {
   const handlePromoClick = (promo: Promotion) => {
     // Track click
     const updated = promotions.map(p => 
-      p.id === promo.id ? { ...p, clickCount: p.clickCount + 1 } : p
+      p.id === promo.id ? { ...p, clickCount: (p.clickCount ?? 0) + 1 } : p
     );
-    localStorage.setItem('spa_promotions', JSON.stringify(updated));
+    writeJson(PROMO_STORAGE_KEY, updated);
     setPromotions(updated);
     
     // Close popup

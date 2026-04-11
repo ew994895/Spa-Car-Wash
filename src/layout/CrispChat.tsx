@@ -10,23 +10,25 @@ declare global {
 
 export function CrispChat() {
   useEffect(() => {
-    // Crisp Chat Integration
-    window.$crisp = [];
+    if (!window.$crisp) {
+      window.$crisp = [];
+    }
     window.CRISP_WEBSITE_ID = "9ad0b13f-c4a2-4189-a644-5233bbbcf561";
-    
-    // Load Crisp script
-    const script = document.createElement('script');
-    script.src = 'https://client.crisp.chat/l.js';
-    script.async = true;
-    document.getElementsByTagName('head')[0].appendChild(script);
 
-    // Configure Crisp settings after load
-    script.onload = () => {
-      if (window.$crisp) {
-        // Only use safe, documented Crisp API calls
-        window.$crisp.push(["safe", true]);
-      }
-    };
+    const existingLoader = document.querySelector<HTMLScriptElement>('script[data-crisp-loader="true"]');
+    if (!existingLoader) {
+      const script = document.createElement('script');
+      script.src = 'https://client.crisp.chat/l.js';
+      script.async = true;
+      script.setAttribute('data-crisp-loader', 'true');
+      script.onload = () => {
+        window.$crisp?.push(["safe", true]);
+      };
+      script.onerror = () => {
+        console.error('Crisp chat failed to load. Live chat will be unavailable until the network issue is resolved.');
+      };
+      document.head.appendChild(script);
+    }
 
     // Cleanup on unmount
     return () => {

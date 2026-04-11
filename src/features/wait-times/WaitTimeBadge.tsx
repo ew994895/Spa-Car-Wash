@@ -1,5 +1,6 @@
 import { Clock } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { readJson } from '@/lib/storage';
 
 interface WaitTimeData {
   handWash: {
@@ -26,14 +27,7 @@ export function WaitTimeBadge() {
   const [waitTimeData, setWaitTimeData] = useState<WaitTimeData | null>(null);
 
   const loadWaitTimeData = () => {
-    const saved = localStorage.getItem('spa-wait-time-data');
-    if (saved) {
-      try {
-        setWaitTimeData(JSON.parse(saved));
-      } catch (e) {
-        console.error('Failed to parse wait time data');
-      }
-    }
+    setWaitTimeData(readJson<WaitTimeData>('spa-wait-time-data', null));
   };
 
   useEffect(() => {

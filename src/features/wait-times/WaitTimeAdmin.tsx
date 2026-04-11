@@ -1,5 +1,6 @@
 import { X, Clock, Save, Trash2, Info } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { readJson, writeJson } from '@/lib/storage';
 
 interface WaitTimeData {
   handWash: {
@@ -52,14 +53,7 @@ export function WaitTimeAdmin({ onClose }: WaitTimeAdminProps) {
 
   useEffect(() => {
     // Load saved data from localStorage
-    const saved = localStorage.getItem('spa-wait-time-data');
-    if (saved) {
-      try {
-        setWaitTimeData(JSON.parse(saved));
-      } catch (e) {
-        console.error('Failed to parse wait time data');
-      }
-    }
+    setWaitTimeData(readJson<WaitTimeData>('spa-wait-time-data', DEFAULT_WAIT_TIME));
   }, []);
 
   const handleSave = () => {
@@ -67,7 +61,7 @@ export function WaitTimeAdmin({ onClose }: WaitTimeAdminProps) {
       ...waitTimeData,
       lastUpdated: new Date().toISOString(),
     };
-    localStorage.setItem('spa-wait-time-data', JSON.stringify(dataToSave));
+    writeJson('spa-wait-time-data', dataToSave);
     
     // Dispatch custom event to notify displays to update
     window.dispatchEvent(new CustomEvent('waitTimeUpdated'));

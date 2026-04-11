@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { X, Plus, Trash2, Eye, EyeOff, Calendar, MapPin, BarChart3, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { readJson, writeJson } from "@/lib/storage";
 
 export interface Promotion {
   id: string;
@@ -28,6 +29,8 @@ export interface Promotion {
 interface PromotionAdminProps {
   onClose: () => void;
 }
+
+export const PROMO_STORAGE_KEY = 'spa_promotions';
 
 const INITIAL_PROMOTION: Omit<Promotion, 'id' | 'clickCount' | 'createdAt'> = {
   active: false,
@@ -56,14 +59,11 @@ export function PromotionAdmin({ onClose }: PromotionAdminProps) {
   }, []);
 
   const loadPromotions = () => {
-    const stored = localStorage.getItem('spa_promotions');
-    if (stored) {
-      setPromotions(JSON.parse(stored));
-    }
+    setPromotions(readJson<Promotion[]>(PROMO_STORAGE_KEY, []));
   };
 
   const savePromotions = (promos: Promotion[]) => {
-    localStorage.setItem('spa_promotions', JSON.stringify(promos));
+    writeJson(PROMO_STORAGE_KEY, promos);
     setPromotions(promos);
     // Dispatch event for other components to react
     window.dispatchEvent(new Event('promotionsUpdated'));
@@ -111,7 +111,7 @@ export function PromotionAdmin({ onClose }: PromotionAdminProps) {
 
   const resetToDefault = () => {
     if (confirm('This will delete ALL promotions and reset to default. Continue?')) {
-      localStorage.removeItem('spa_promotions');
+      localStorage.removeItem(PROMO_STORAGE_KEY);
       setPromotions([]);
       setShowResetConfirm(false);
       alert('Promotions reset to default successfully!');

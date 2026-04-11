@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Sparkles, X } from "lucide-react";
-import { Promotion } from "./PromotionAdmin";
+import { Promotion, PROMO_STORAGE_KEY } from "./PromotionAdmin";
+import { readJson, writeJson } from "@/lib/storage";
 
 export function PromotionFloating() {
   const [promotions, setPromotions] = useState<Promotion[]>([]);
@@ -24,10 +25,7 @@ export function PromotionFloating() {
   }, [promotions]);
 
   const loadPromotions = () => {
-    const stored = localStorage.getItem('spa_promotions');
-    if (stored) {
-      setPromotions(JSON.parse(stored));
-    }
+    setPromotions(readJson<Promotion[]>(PROMO_STORAGE_KEY, []));
   };
 
   const filterFloatingPromotion = () => {
@@ -48,9 +46,9 @@ export function PromotionFloating() {
 
     // Track click
     const updated = promotions.map(p => 
-      p.id === floatingPromo.id ? { ...p, clickCount: p.clickCount + 1 } : p
+      p.id === floatingPromo.id ? { ...p, clickCount: (p.clickCount ?? 0) + 1 } : p
     );
-    localStorage.setItem('spa_promotions', JSON.stringify(updated));
+    writeJson(PROMO_STORAGE_KEY, updated);
     
     // Scroll to section
     const targetSection = getTargetSection(floatingPromo.placement);

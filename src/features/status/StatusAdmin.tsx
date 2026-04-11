@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { X, Cloud, CloudRain, CloudSnow, Wind, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { readJson, writeJson } from "@/lib/storage";
 
 interface StatusAdminProps {
   onClose: () => void;
@@ -90,10 +91,12 @@ export function StatusAdmin({ onClose, onUpdate }: StatusAdminProps) {
 
   useEffect(() => {
     // Load current status from localStorage
-    const savedStatus = localStorage.getItem("spaCarWashStatus");
-    if (savedStatus) {
-      setStatus(JSON.parse(savedStatus));
-    }
+    setStatus(readJson<BusinessStatus>("spaCarWashStatus", {
+      isOpen: true,
+      reason: "",
+      updatedAt: new Date().toISOString(),
+      useCustomTime: false,
+    }));
   }, []);
 
   const handleSave = () => {
@@ -101,7 +104,7 @@ export function StatusAdmin({ onClose, onUpdate }: StatusAdminProps) {
       ...status,
       updatedAt: new Date().toISOString(),
     };
-    localStorage.setItem("spaCarWashStatus", JSON.stringify(updatedStatus));
+    writeJson("spaCarWashStatus", updatedStatus);
     
     // Dispatch custom event to notify other components
     window.dispatchEvent(new Event('statusUpdated'));
