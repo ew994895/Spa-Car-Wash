@@ -1,6 +1,21 @@
-import { RouterProvider } from 'react-router-dom';
-import { router } from './routes';
+import { useHashRoute } from "./navigation";
+import { Home } from "@/pages/Home";
+import { PremiumDetailing } from "@/pages/PremiumDetailing";
+import { UltimateDetailing } from "@/pages/UltimateDetailing";
+import { Admin } from "@/pages/Admin";
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  const route = useHashRoute();
+
+  switch (route.page) {
+    case "premium":
+      return <PremiumDetailing packageId={route.packageId} />;
+    case "ultimate":
+      return <UltimateDetailing />;
+    case "admin":
+      return <Admin />;
+    case "home":
+    default:
+      return <Home initialSection={route.section} />;
+  }
 }

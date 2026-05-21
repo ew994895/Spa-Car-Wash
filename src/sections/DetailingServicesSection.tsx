@@ -1,6 +1,6 @@
 import { Sparkles, Star, Car, Droplet, Shield, Plus, Check, Package } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { navigateTo } from "@/app/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { WaitTimeDisplay } from "@/features/wait-times/WaitTimeDisplay";
@@ -259,15 +259,14 @@ const additionalServices = [
 ];
 
 export function DetailingServicesSection() {
-  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'packages' | 'additional'>('packages');
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
 
   const handlePackageClick = (service: typeof detailingPackages[0]) => {
     if (service.isUltimate) {
-      navigate("/ultimate-detailing");
+      navigateTo("/ultimate-detailing");
     } else if (service.isPremium) {
-      navigate(`/premium-detailing?package=${service.id}`);
+      navigateTo(`/premium-detailing?package=${service.id}`);
     }
   };
 
@@ -429,7 +428,7 @@ export function DetailingServicesSection() {
                 </p>
                 <Button
                   className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white font-bold"
-                  onClick={() => navigate('/premium-detailing')}
+                  onClick={() => navigateTo("/premium-detailing")}
                 >
                   Book Detail Appointment
                 </Button>
