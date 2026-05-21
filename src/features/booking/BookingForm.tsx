@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Calendar, User, Mail, Phone, Car, MessageSquare, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,6 +9,7 @@ interface BookingFormProps {
 }
 
 const BOOKING_ENDPOINT = import.meta.env.VITE_BOOKING_ENDPOINT?.trim();
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const initialFormData = {
   name: "",
   email: "",
@@ -26,6 +27,13 @@ export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
   const [statusMessage, setStatusMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [honeypot, setHoneypot] = useState("");
+  const controllerRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    return () => {
+      controllerRef.current?.abort();
+    };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -54,11 +62,22 @@ export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
       return;
     }
 
+    if (!EMAIL_REGEX.test(formData.email.trim())) {
+      setStatus("error");
+      setStatusMessage("Please enter a valid email address (e.g., name@example.com).");
+      return;
+    }
+
     if (!BOOKING_ENDPOINT) {
       setStatus("error");
       setStatusMessage("Booking submissions are temporarily unavailable. Please call 610-695-0711 to schedule.");
       return;
     }
+
+    controllerRef.current?.abort();
+    const controller = new AbortController();
+    controllerRef.current = controller;
+    const timeout = setTimeout(() => controller.abort(), 15000);
 
     setIsSubmitting(true);
     setStatus("idle");
@@ -80,6 +99,7 @@ export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
           Accept: "application/json",
         },
         body: JSON.stringify(payload),
+        signal: controller.signal,
       });
 
       if (!response.ok) {
@@ -91,26 +111,41 @@ export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
       setStatusMessage("Thanks! Our team will reach out by phone or email to confirm the appointment details.");
       resetForm();
     } catch (error) {
-      console.error("Booking submission failed", error);
-      setStatus("error");
-      setStatusMessage(
-        "We couldn't submit your request online. Please call 610-695-0711 and we'll schedule you right away."
-      );
+      if ((error as Error).name === "AbortError") {
+        setStatus("error");
+        setStatusMessage("The request timed out. Please check your connection or call 610-695-0711.");
+      } else {
+        console.error("Booking submission failed", error);
+        setStatus("error");
+        setStatusMessage(
+          "We couldn't submit your request online. Please call 610-695-0711 and we'll schedule you right away."
+        );
+      }
     } finally {
+      clearTimeout(timeout);
+      controllerRef.current = null;
       setIsSubmitting(false);
     }
   };
 
+  const handleNewRequest = () => {
+    setStatus("idle");
+    setStatusMessage("");
+  };
+
   if (status === "success") {
     return (
-      <Card className="bg-gradient-to-br from-green-900/40 to-green-800/40 border-2 border-green-500/40 p-8">
-        <div className="text-center">
-          <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
-          <h3 className="text-2xl font-bold text-white mb-2">Booking Request Received!</h3>
-          <p className="text-green-100 mb-4">{statusMessage}</p>
+      <Card className="bg-gradient-to-br from-green-900/40 to-green-800/40 border-2 border-green-500/40 p-8" aria-live="polite" role="status">
+        <div className="text-center space-y-4">
+          <CheckCircle className="w-16 h-16 text-green-400 mx-auto" />
+          <h3 className="text-2xl font-bold text-white">Booking Request Received!</h3>
+          <p className="text-green-100">{statusMessage}</p>
           <p className="text-green-200 text-sm">
-            You can also call us directly at <a href="tel:610-695-0711" className="font-bold text-white hover:text-green-300">610-695-0711</a>
+            Prefer to talk now? Call <a href="tel:610-695-0711" className="font-bold text-white hover:text-green-300">610-695-0711</a>
           </p>
+          <Button onClick={handleNewRequest} className="bg-white text-green-700 font-semibold px-6 py-3">
+            Start Another Request
+          </Button>
         </div>
       </Card>
     );
@@ -138,9 +173,9 @@ export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
         />
 
         {status === "error" && (
-          <div className="flex items-start gap-3 bg-red-900/30 border border-red-500/40 text-red-100 rounded-lg p-4" role="alert">
+          <div className="flex items-start gap-3 bg-red-900/30 border border-red-500/40 text-red-100 rounded-lg p-4" role="alert" aria-live="assertive">
             <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
-            <p className="text-sm" aria-live="polite">{statusMessage}</p>
+            <p className="text-sm">{statusMessage}</p>
           </div>
         )}
 
@@ -316,7 +351,7 @@ export function BookingForm({ serviceName, servicePrice }: BookingFormProps) {
             onClick={() => window.open('tel:610-695-0711')}
           >
             <Phone className="w-5 h-5 mr-2" />
-            Call Instead
+            Call the Shop
           </Button>
         </div>
 

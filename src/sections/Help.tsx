@@ -33,7 +33,7 @@ export function Help() {
       }
     } catch (err) {
       // Silently fail - copy functionality not critical
-      console.log("Copy not available in this environment");
+      console.warn("Copy not available in this environment");
     }
   };
 
