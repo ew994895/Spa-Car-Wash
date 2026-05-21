@@ -167,7 +167,9 @@ export function Footer() {
               </div>
             </div>
             <Button
-              onClick={() => window.open('/admin', '_self')}
+              onClick={() => {
+                window.location.href = `${import.meta.env.BASE_URL}#/admin`;
+              }}
               className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold hover:from-yellow-400 hover:to-yellow-500"
             >
               Go to Admin Portal

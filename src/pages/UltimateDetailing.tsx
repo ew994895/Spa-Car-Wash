@@ -255,7 +255,7 @@ export function UltimateDetailing() {
               Members get special pricing on the Ultimate Detail
             </p>
             <Button
-              onClick={() => navigate("/#membership")}
+              onClick={() => navigate("/", { state: { scrollTo: "membership" } })}
               className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white w-full"
             >
               Learn About Membership
