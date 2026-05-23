@@ -4,26 +4,21 @@ import { PremiumDetailing } from "@/pages/PremiumDetailing";
 import { UltimateDetailing } from "@/pages/UltimateDetailing";
 import { Admin } from "@/pages/Admin";
 
-export const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      Component: Home,
-    },
-    {
-      path: "/premium-detailing",
-      Component: PremiumDetailing,
-    },
-    {
-      path: "/ultimate-detailing",
-      Component: UltimateDetailing,
-    },
-    {
-      path: "/admin",
-      Component: Admin,
-    },
-  ],
+export const router = createBrowserRouter([
   {
-    basename: import.meta.env.BASE_URL,
+    path: "/",
+    Component: Home,
   },
-);
+  {
+    path: "/premium-detailing",
+    Component: PremiumDetailing,
+  },
+  {
+    path: "/ultimate-detailing",
+    Component: UltimateDetailing,
+  },
+  {
+    path: "/admin",
+    Component: Admin,
+  },
+]);
