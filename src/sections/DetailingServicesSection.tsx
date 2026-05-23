@@ -1,6 +1,6 @@
 import { Sparkles, Star, Car, Droplet, Shield, Plus, Check, Package } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { WaitTimeDisplay } from "@/features/wait-times/WaitTimeDisplay";

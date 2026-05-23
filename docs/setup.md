@@ -1,6 +1,6 @@
 # Setup & Deployment
 
-This document covers local development and deployment for the Spa Car Wash site. The app is a Vite + React SPA. Admin controls remain frontend-only and store their data in browser `localStorage`.
+This document walks through installing, running, and deploying the Spa Car Wash marketing website. The codebase is a Vite + React SPA with Tailwind CSS and TypeScript. Admin controls (promotions, wait times, business status) are *frontend-only* and store their data in the browser's `localStorage`.
 
 ## Requirements
 - Node.js 18 or newer
@@ -20,6 +20,8 @@ npm install
 | `npm run dev` | Start Vite dev server on http://localhost:5173 |
 | `npm run build` | Generate production assets in `dist/` |
 | `npm run preview` | Preview the production build locally |
+
+> The helper scripts `setup.sh` and `setup.bat` simply call `npm install` followed by `npm run dev`. They remain for convenience but are optional.
 
 ## Building & Deploying
 1. Build the app:
