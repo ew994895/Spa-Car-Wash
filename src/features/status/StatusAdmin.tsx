@@ -307,12 +307,16 @@ export function StatusAdmin({ onClose, onUpdate }: StatusAdminProps) {
 
 // Helper function to get current status
 export function getBusinessStatus(): BusinessStatus {
-  return readJson<BusinessStatus>("spaCarWashStatus", {
+  const savedStatus = localStorage.getItem("spaCarWashStatus");
+  if (savedStatus) {
+    return JSON.parse(savedStatus);
+  }
+  return {
     isOpen: true,
     reason: "",
     updatedAt: new Date().toISOString(),
     useCustomTime: false,
-  });
+  };
 }
 
 // Helper function to format next opening time

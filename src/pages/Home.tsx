@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { Header } from "@/layout/Header";
 import { Footer } from "@/layout/Footer";
 import { CrispChat } from "@/layout/CrispChat";
@@ -17,21 +15,6 @@ import { PromotionPopup } from "@/features/promotions/PromotionPopup";
 import { PromotionFloating } from "@/features/promotions/PromotionFloating";
 import { PromotionDisplay } from "@/features/promotions/PromotionDisplay";
 export function Home() {
-  const location = useLocation();
-
-  useEffect(() => {
-    const targetId = (location.state as { scrollTo?: string } | null)?.scrollTo;
-    if (!targetId) {
-      return;
-    }
-
-    requestAnimationFrame(() => {
-      const element = document.getElementById(targetId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    });
-  }, [location.state]);
   
   return (
     <div className="min-h-screen bg-slate-900">

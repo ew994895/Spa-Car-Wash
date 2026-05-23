@@ -327,7 +327,7 @@ export function PremiumDetailing() {
               Members get special pricing on all detailing services
             </p>
             <Button
-              onClick={() => navigate("/", { state: { scrollTo: "membership" } })}
+              onClick={() => navigate("/#membership")}
               className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white"
             >
               Learn About Membership
