@@ -1,5 +1,4 @@
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, Shield } from "lucide-react";
-import { navigateTo } from "@/app/navigation";
 import { Button } from "@/components/ui/button";
 
 const logo = "https://spacarwash.com/wp-content/uploads/2024/10/logo.png";
@@ -169,7 +168,7 @@ export function Footer() {
             </div>
             <Button
               onClick={() => {
-                navigateTo("/admin");
+                window.location.href = `${import.meta.env.BASE_URL}#/admin`;
               }}
               className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold hover:from-yellow-400 hover:to-yellow-500"
             >

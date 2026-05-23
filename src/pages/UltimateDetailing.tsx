@@ -1,10 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Star, Check, Clock, Sparkles, Shield, Award } from "lucide-react";
-import { navigateTo } from "@/app/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { BookingForm } from "@/features/booking/BookingForm";
 
 export function UltimateDetailing() {
+  const navigate = useNavigate();
+
   const ultimatePackage = {
     name: "Ultimate Detail Package",
     price: "$750–$875",
@@ -89,7 +91,7 @@ export function UltimateDetailing() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Button
             variant="outline"
-            onClick={() => navigateTo("/")}
+            onClick={() => navigate("/")}
             className="border-yellow-400 text-yellow-100 hover:bg-yellow-500/20"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -253,7 +255,7 @@ export function UltimateDetailing() {
               Members get special pricing on the Ultimate Detail
             </p>
             <Button
-              onClick={() => navigateTo("/?section=membership")}
+              onClick={() => navigate("/", { state: { scrollTo: "membership" } })}
               className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white w-full"
             >
               Learn About Membership

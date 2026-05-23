@@ -1,5 +1,5 @@
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowLeft, Sparkles, Check } from "lucide-react";
-import { navigateTo } from "@/app/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { BookingForm } from "@/features/booking/BookingForm";
@@ -201,11 +201,11 @@ const premiumPackages = [
   },
 ];
 
-interface PremiumDetailingProps {
-  packageId?: string;
-}
-
-export function PremiumDetailing({ packageId = "exterior" }: PremiumDetailingProps) {
+export function PremiumDetailing() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const packageId = searchParams.get("package") || "exterior";
+  
   const selectedPackage = premiumPackages.find(pkg => pkg.id === packageId) || premiumPackages[0];
 
   return (
@@ -215,7 +215,7 @@ export function PremiumDetailing({ packageId = "exterior" }: PremiumDetailingPro
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Button
             variant="outline"
-            onClick={() => navigateTo("/")}
+            onClick={() => navigate("/")}
             className="border-blue-400 text-blue-100 hover:bg-blue-500/20"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -232,7 +232,7 @@ export function PremiumDetailing({ packageId = "exterior" }: PremiumDetailingPro
             {premiumPackages.map((pkg) => (
               <Button
                 key={pkg.id}
-                onClick={() => navigateTo(`/premium-detailing?package=${pkg.id}`)}
+                onClick={() => navigate(`/premium-detailing?package=${pkg.id}`)}
                 className={pkg.id === packageId 
                   ? "bg-gradient-to-r from-yellow-600 to-yellow-700 text-black font-bold"
                   : "bg-slate-700 text-blue-100 hover:bg-slate-600"
@@ -327,7 +327,7 @@ export function PremiumDetailing({ packageId = "exterior" }: PremiumDetailingPro
               Members get special pricing on all detailing services
             </p>
             <Button
-              onClick={() => navigateTo("/?section=membership")}
+              onClick={() => navigate("/", { state: { scrollTo: "membership" } })}
               className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white"
             >
               Learn About Membership
