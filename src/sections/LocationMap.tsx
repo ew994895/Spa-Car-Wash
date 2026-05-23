@@ -1,4 +1,4 @@
-import { MapPin, Navigation, AlertCircle } from 'lucide-react';
+import { MapPin, Navigation } from 'lucide-react';
 import { useState } from 'react';
 
 export function LocationMap() {
@@ -35,9 +35,6 @@ export function LocationMap() {
     }
   };
 
-  const [mapError, setMapError] = useState(false);
-  const [mapLoaded, setMapLoaded] = useState(false);
-
   return (
     <div className="space-y-4">
       {/* Map Header */}
@@ -56,29 +53,17 @@ export function LocationMap() {
       </div>
 
       {/* Embedded Google Map */}
-      <div className="relative w-full h-[400px] rounded-lg overflow-hidden border border-slate-700 bg-slate-900">
-        {!mapError && (
-          <iframe
-            src={`https://www.google.com/maps?q=${encodedAddress}&output=embed`}
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Spa Car Wash & Detailing Center Location"
-            onLoad={() => setMapLoaded(true)}
-            onError={() => setMapError(true)}
-          />
-        )}
-        {(!mapLoaded || mapError) && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-slate-900/90 text-center px-4">
-            <AlertCircle className="w-8 h-8 text-yellow-300" />
-            <p className="text-blue-100 text-sm">
-              {mapError ? 'Map preview is unavailable right now. Use the directions button below to open Google Maps.' : 'Loading map...'}
-            </p>
-          </div>
-        )}
+      <div className="relative w-full h-[400px] rounded-lg overflow-hidden border border-slate-700">
+        <iframe
+          src={`https://www.google.com/maps?q=${encodedAddress}&output=embed`}
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Spa Car Wash & Detailing Center Location"
+        />
       </div>
 
       {/* Info Card */}

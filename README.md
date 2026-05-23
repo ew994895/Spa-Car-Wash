@@ -95,7 +95,6 @@ Spa-Car-Wash/
 - `docs/reliability-audit-summary.md` – latest stability/accessibility findings
 - `docs/deployment-handoff-summary.md` – run/deploy instructions, env requirements, staff ops
 - `docs/business-pitch-summary.md` – client-facing talking points for the redesign
-- `docs/final-readiness-summary.md` – final polish checklist before stakeholder demos
 - `docs/archived/` – historical restructure/cleanup logs
 - `docs/final-polish-summary.md` – this cleanup summary
 
